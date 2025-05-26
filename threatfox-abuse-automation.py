@@ -63,7 +63,7 @@ with open(output_path, "w", encoding="utf-8") as f:
         if len(row) >= 17:
             combined_field = ",".join(row[11:16])
             new_row = row[:11] + [combined_field] + row[16:]
-            line = ", ".join(f'"{field}"' for field in new_row)
+            line = ",".join(f'"{field}"' for field in new_row)
             f.write(line + "\n")
 
 print(f"총 저장된 항목: {len(filtered_data)}")
