@@ -58,6 +58,12 @@ os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
 # JSON 저장
 with open(output_path, "w", encoding="utf-8") as f:
-    json.dump(filtered_data, f, indent=2, ensure_ascii=False)
+    for row in filtered_data:
+        # row[2]는 IP:PORT 그대로, row[11:16]은 ,로 묶어 1필드로
+        if len(row) >= 17:
+            combined_field = ",".join(row[11:16])
+            new_row = row[:11] + [combined_field] + row[16:]
+            line = ", ".join(f'"{field}"' for field in new_row)
+            f.write(line + "\n")
 
 print(f"총 저장된 항목: {len(filtered_data)}")
